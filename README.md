@@ -3,7 +3,7 @@
 L'obiettivo di questo progetto è risolvere il problema N-Body, presentando sia una soluzione che utilizzi le funzionalità di MPI, sia l'analisi delle sue prestazioni su un cluster ospitato su AWS.
 
 ### Il problema
-Il problema N-Body consiste nel determinare le posizioni e le velocità di un insieme di particelle nel tempo. Si simula quindi il comportamento di queste particelle implementando le formule per il calcolo delle posizioni e delle velocità.
+Il problema N-Body consiste nel determinare le posizioni e le velocità di un insieme di particelle nel tempo. Si simula quindi il comportamento di queste particelle implementando le formule per il calcolo delle posizioni e delle velocità. Questa simulazione può essere applicata a diversi problemi reali, ad esempio all'interazioni tra corpi celesti o di un insieme di molecole e atomi.
 
 ## Testing della soluzione
 La soluzione può essere eseguita ed è stata testata in un ambiente con OpenMPI il compilatore GCC, in particolare per quanto riguarda l'ambiente Docker MPI, il container dovrà essere lanciato con l'opzione `--privileged`. Il file sorgente dovrà essere compilato eseguendo:
