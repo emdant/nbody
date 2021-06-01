@@ -112,17 +112,14 @@ int main(int argc, char** argv) {
       computationBodies[i].z += computationBodies[i].vz * dt;
     }
 
+    if (iter != 1)
+      MPI_Waitall(commSize - 1, sendRequests, MPI_STATUSES_IGNORE);
+
     for (int i = 0, j = 0; i < commSize; i++)
       if (i != rank) 
-        MPI_Isend(&computationBodies[displacements[rank]], receiveCounts[rank], body, i, DATA_TAG, MPI_COMM_WORLD, &sendRequests[j++]);    
+        MPI_Irsend(&computationBodies[displacements[rank]], receiveCounts[rank], body, i, DATA_TAG, MPI_COMM_WORLD, &sendRequests[j++]);    
     
-    int completed = 0;
-    while (!completed)
-      MPI_Testall(commSize - 1, receiveRequests, &completed, MPI_STATUSES_IGNORE);
-
-    //for (int i = 0; i < commSize - 1; i++)
-      //MPI_Request_free(&receiveRequests[i]);
-      //maybe free also send
+    MPI_Waitall(commSize - 1, receiveRequests, MPI_STATUSES_IGNORE);
 
     memcpy(&receiveBodies[displacements[rank]], &computationBodies[displacements[rank]], sizeof(Body) * receiveCounts[rank]);
 
@@ -142,8 +139,12 @@ int main(int argc, char** argv) {
   #endif
 
   if (rank == 0)
-    printf("Time in seconds = %f\n", timeEnd - timeStart);
+    printf("%f\n", timeEnd - timeStart);
 
   free(computationBodies);
   free(receiveBodies);
+  free(receiveCounts);
+  free(displacements);
+  free(receiveRequests);
+  free(sendRequests);
 }

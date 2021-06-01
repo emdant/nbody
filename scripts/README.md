@@ -10,7 +10,7 @@ source ./setup.sh
 
 Aspetta che termini l'installazione di MPI su ogni nodo, poi esegui:
 ```
-sudo cp ./afterInstall.sh /home/pcpc
+sudo cp ./afterSetup.sh /home/pcpc
 sudo login pcpc
 #password: root
 source ./afterSetup.sh

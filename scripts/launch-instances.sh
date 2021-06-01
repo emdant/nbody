@@ -11,5 +11,5 @@ sed -e 's/$/ slots=2/' -i hostfile
 master=$(head -1 hostfile  | awk '{print $1;}')
 
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i devenv-key.pem ./hostfile ./devenv-key.pem ./setup.sh ./generateInstall.sh ./afterSetup.sh ubuntu@$master:
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i devenv-key.pem ../v4/nbodyV4.c ../v5/nbodyV5.c ubuntu@$master:
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i devenv-key.pem ../v4/nbody.c ubuntu@$master:
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i devenv-key.pem ubuntu@$master

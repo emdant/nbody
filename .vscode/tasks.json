@@ -22,7 +22,7 @@
     },
     {
       "type": "shell",
-      "label": "MPI Valgrind Run",
+      "label": "MPI Valgrind Leak Run",
       "command": "mpirun",
       "args": [
         "--allow-run-as-root",
@@ -31,6 +31,33 @@
         "${input:np}",
         "valgrind",
         "--leak-check=yes",
+        "--log-file=${relativeFileDirname}/log.txt",
+        "${relativeFileDirname}/${relativeFileDirname}.out",
+        "100",
+        "1000"
+      ],
+      "dependsOn": [
+        "MPI Debug Build"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "test"
+    },
+    {
+      "type": "shell",
+      "label": "MPI Valgrind Cache Run",
+      "command": "mpirun",
+      "args": [
+        "--allow-run-as-root",
+        "--oversubscribe",
+        "-np",
+        "${input:np}",
+        "valgrind",
+        "--tool=cachegrind",
         "--log-file=${relativeFileDirname}/log.txt",
         "${relativeFileDirname}/${relativeFileDirname}.out",
         "100",
@@ -102,6 +129,30 @@
         "${relativeFileDirname}/${relativeFileDirname}.out",
         "100",
         "20000"
+      ],
+      "dependsOn": [
+        "MPI Release Build"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "test"
+    },
+    {
+      "type": "shell",
+      "label": "MPI Release Run Test",
+      "command": "mpirun",
+      "args": [
+        "--allow-run-as-root",
+        "--oversubscribe",
+        "-np",
+        "${input:np}",
+        "${relativeFileDirname}/${relativeFileDirname}.out",
+        "100",
+        "1000"
       ],
       "dependsOn": [
         "MPI Release Build"
